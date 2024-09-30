@@ -1,6 +1,6 @@
-package com.example.hhplus_tdd_clean_architecture_java.lecture.interfaces;
+package com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence;
 
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Application;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
 import org.springframework.stereotype.Repository;
 
 @Repository

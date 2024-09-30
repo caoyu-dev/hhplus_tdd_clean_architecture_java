@@ -1,9 +1,9 @@
-package com.example.hhplus_tdd_clean_architecture_java.lecture.application;
+package com.example.hhplus_tdd_clean_architecture_java.application.lecture;
 
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Application;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Lecture;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.interfaces.ApplicationRepository;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.interfaces.LectureRepository;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
+import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.ApplicationRepository;
+import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.LectureRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

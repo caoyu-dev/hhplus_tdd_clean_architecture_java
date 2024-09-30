@@ -1,7 +1,7 @@
-package com.example.hhplus_tdd_clean_architecture_java.lecture.infrastructure;
+package com.example.hhplus_tdd_clean_architecture_java.presentation.lecture;
 
-import com.example.hhplus_tdd_clean_architecture_java.lecture.application.LectureService;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Lecture;
+import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureService;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

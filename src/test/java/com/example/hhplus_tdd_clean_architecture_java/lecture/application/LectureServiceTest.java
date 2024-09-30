@@ -1,9 +1,10 @@
 package com.example.hhplus_tdd_clean_architecture_java.lecture.application;
 
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Application;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.domain.Lecture;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.interfaces.ApplicationRepository;
-import com.example.hhplus_tdd_clean_architecture_java.lecture.interfaces.LectureRepository;
+import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureService;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
+import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.ApplicationRepository;
+import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.LectureRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
