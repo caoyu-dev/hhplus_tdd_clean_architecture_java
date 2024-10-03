@@ -1,31 +1,40 @@
 package com.example.hhplus_tdd_clean_architecture_java.domain.lecture;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
 @Getter
+@Setter
 public class Lecture {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private int capacity;
-    private LocalDateTime createdAt;
+    private String lecturer;
+    private LocalDate lectureDate;
 
-    public Lecture(String title, int capacity) {
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Application> applications = new HashSet<>();
+
+    private int maxCapacity = 30;
+
+    public Lecture() {}
+
+    public Lecture(String title, String lecturer, LocalDate lectureDate) {
         this.title = title;
-        this.capacity = capacity;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public boolean hasAvailableCapacity() {
-        return this.capacity > 0;
-    }
-
-    public void reduceCapacity() {
-        if (capacity > 0) {
-            this.capacity--;
-        } else {
-            throw new IllegalStateException("해당 강의는 자리가 없다.");
-        }
+        this.lecturer = lecturer;
+        this.lectureDate = lectureDate;
     }
 }
