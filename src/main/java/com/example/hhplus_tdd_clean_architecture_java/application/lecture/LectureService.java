@@ -6,6 +6,7 @@ import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
 import java.util.List;
 
 public interface LectureService {
-    Application applyForLecture(Long userId, Long lectureId);
+    boolean applyForLecture(Long userId, Long lectureId);
     List<Lecture> getAllLectures();
+    List<Application> getUserApplications(Long userId);
 }
