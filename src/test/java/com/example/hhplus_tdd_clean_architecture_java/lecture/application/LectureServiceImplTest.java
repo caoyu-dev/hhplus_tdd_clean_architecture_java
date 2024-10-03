@@ -1,7 +1,6 @@
 package com.example.hhplus_tdd_clean_architecture_java.lecture.application;
 
-import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureServiceImpl;
-import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
+import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureService;
 import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
 import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.ApplicationRepository;
 import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.LectureRepository;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 class LectureServiceImplTest {
     @Autowired
-    private LectureServiceImpl lectureServiceImpl;
+    private LectureService lectureService;
 
     @MockBean
     private LectureRepository lectureRepository;
@@ -32,41 +32,25 @@ class LectureServiceImplTest {
     @Test
     public void apply_for_lecture_success() {
         // Given
-        Lecture lecture = new Lecture("항해99", 10); // 처음 capacity 10개
+        Lecture lecture = new Lecture("항해99", "허재님", LocalDate.of(2024, 01, 01));
         given(lectureRepository.findById(anyLong())).willReturn(Optional.of(lecture));
         given(applicationRepository.existsByUserIdAndLectureId(anyLong(), anyLong())).willReturn(false);
 
         // When
-        Application application = lectureServiceImpl.applyForLecture(1L, 1L);
-
-        // Then
-        assertNotNull(application);
-        assertEquals("ACCEPTED", application.getStatus());
-        assertEquals(9, lecture.getCapacity()); // 신청 후 capacity 9개
-    }
-
-    @Test
-    public void apply_for_lecture_Full() {
-        // Given
-        Lecture lecture = new Lecture("항해99", 0); // capacity 0
-        given(lectureRepository.findById(anyLong())).willReturn(Optional.of(lecture));
-
-        // When & Then
-        assertThrows(IllegalStateException.class, () -> {
-            lectureServiceImpl.applyForLecture(1L, 1L);
-        });
+        boolean success = lectureService.applyForLecture(1L, 1L);
+        assertTrue(success);
     }
 
     @Test
     public void apply_for_lecture_user_already_applied() {
         // Given
-        Lecture lecture = new Lecture("항해99", 10);
+        Lecture lecture = new Lecture("항해99", "허재님", LocalDate.of(2024, 01, 01));
         given(lectureRepository.findById(anyLong())).willReturn(Optional.of(lecture));
         given(applicationRepository.existsByUserIdAndLectureId(anyLong(), anyLong())).willReturn(true); // 중복 신청
 
         // When & Then
         assertThrows(IllegalStateException.class, () -> {
-            lectureServiceImpl.applyForLecture(1L, 1L);
+            lectureService.applyForLecture(1L, 1L);
         });
     }
 
@@ -74,13 +58,13 @@ class LectureServiceImplTest {
     public void get_all_lectures_returns_lectures() {
         // Given
         List<Lecture> lectures = Arrays.asList(
-                new Lecture("자바", 10),
-                new Lecture("코틀린", 20)
+                new Lecture("자바", "허재님", LocalDate.of(2024, 01, 01)),
+                new Lecture("코틀린", "허재님", LocalDate.of(2024, 01, 02))
         );
         given(lectureRepository.findAll()).willReturn(lectures);
 
         // When
-        List<Lecture> result = lectureServiceImpl.getAllLectures();
+        List<Lecture> result = lectureService.getAllLectures();
 
         // Then
         assertNotNull(result);
