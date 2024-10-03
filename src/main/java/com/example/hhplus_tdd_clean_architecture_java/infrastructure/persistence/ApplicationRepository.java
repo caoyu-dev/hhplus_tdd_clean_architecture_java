@@ -1,10 +1,9 @@
 package com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence;
 
-import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicationRepository {
+public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Long> {
     boolean existsByUserIdAndLectureId(Long userId, Long lectureId);
-    void save(Application application);
 }

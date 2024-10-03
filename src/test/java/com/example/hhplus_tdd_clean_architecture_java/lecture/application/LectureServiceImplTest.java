@@ -1,6 +1,6 @@
 package com.example.hhplus_tdd_clean_architecture_java.lecture.application;
 
-import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureService;
+import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureServiceImpl;
 import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
 import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
 import com.example.hhplus_tdd_clean_architecture_java.infrastructure.persistence.ApplicationRepository;
@@ -19,9 +19,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
-class LectureServiceTest {
+class LectureServiceImplTest {
     @Autowired
-    private LectureService lectureService;
+    private LectureServiceImpl lectureServiceImpl;
 
     @MockBean
     private LectureRepository lectureRepository;
@@ -37,7 +37,7 @@ class LectureServiceTest {
         given(applicationRepository.existsByUserIdAndLectureId(anyLong(), anyLong())).willReturn(false);
 
         // When
-        Application application = lectureService.applyForLecture(1L, 1L);
+        Application application = lectureServiceImpl.applyForLecture(1L, 1L);
 
         // Then
         assertNotNull(application);
@@ -53,7 +53,7 @@ class LectureServiceTest {
 
         // When & Then
         assertThrows(IllegalStateException.class, () -> {
-            lectureService.applyForLecture(1L, 1L);
+            lectureServiceImpl.applyForLecture(1L, 1L);
         });
     }
 
@@ -66,7 +66,7 @@ class LectureServiceTest {
 
         // When & Then
         assertThrows(IllegalStateException.class, () -> {
-            lectureService.applyForLecture(1L, 1L);
+            lectureServiceImpl.applyForLecture(1L, 1L);
         });
     }
 
@@ -80,7 +80,7 @@ class LectureServiceTest {
         given(lectureRepository.findAll()).willReturn(lectures);
 
         // When
-        List<Lecture> result = lectureService.getAllLectures();
+        List<Lecture> result = lectureServiceImpl.getAllLectures();
 
         // Then
         assertNotNull(result);
