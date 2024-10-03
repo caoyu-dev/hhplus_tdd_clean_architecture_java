@@ -1,6 +1,7 @@
 package com.example.hhplus_tdd_clean_architecture_java.presentation.lecture;
 
 import com.example.hhplus_tdd_clean_architecture_java.application.lecture.LectureService;
+import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Application;
 import com.example.hhplus_tdd_clean_architecture_java.domain.lecture.Lecture;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,5 +38,10 @@ public class LectureController {
     public ResponseEntity<List<Lecture>> getAllLectures() {
         List<Lecture> lectures = lectureService.getAllLectures();
         return ResponseEntity.ok(lectures);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<Application>> getUserApplications(@PathVariable Long userId) {
+        return ResponseEntity.ok(lectureService.getUserApplications(userId));
     }
 }
