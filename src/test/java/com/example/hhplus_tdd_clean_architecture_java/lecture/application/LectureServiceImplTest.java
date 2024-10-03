@@ -55,6 +55,29 @@ class LectureServiceImplTest {
     }
 
     @Test
+    public void only_30_users_can_apply_for_lecture() {
+        // Given
+        Lecture lecture = new Lecture("항해99", "허재님", LocalDate.of(2024, 01, 01));
+        given(lectureRepository.findById(anyLong())).willReturn(Optional.of(lecture));
+
+        // 29명의 신청 상태 설정
+        given(applicationRepository.countByLecture(lecture)).willReturn(29L);
+        given(applicationRepository.existsByUserIdAndLectureId(anyLong(), anyLong())).willReturn(false);
+
+        // When - 30번째 신청자는 성공
+        boolean success = lectureService.applyForLecture(30L, 1L);
+        assertTrue(success);
+
+        // 30명의 신청 상태 설정
+        given(applicationRepository.countByLecture(lecture)).willReturn(30L);
+
+        // Then - 31번째 신청자는 실패
+        assertThrows(IllegalStateException.class, () -> {
+            lectureService.applyForLecture(31L, 1L);
+        });
+    }
+
+    @Test
     public void get_all_lectures_returns_lectures() {
         // Given
         List<Lecture> lectures = Arrays.asList(
